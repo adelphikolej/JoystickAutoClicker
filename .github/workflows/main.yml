@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Download project source
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -17,15 +17,14 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install --only-binary=:all: pyinstaller
-          pip install --no-build-isolation vgamepad==0.1.0
+      - name: Install PyInstaller
+        run: python -m pip install --only-binary=:all: pyinstaller
+
+      - name: Install vgamepad
+        run: python -m pip install --no-build-isolation vgamepad==0.1.0
 
       - name: Build EXE
-        run: |
-          pyinstaller --noconfirm --onefile --windowed --name JoystickAutoClicker main.py
+        run: python -m PyInstaller --noconfirm --onefile --windowed --name JoystickAutoClicker main.py
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4
