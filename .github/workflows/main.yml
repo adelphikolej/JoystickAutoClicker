@@ -20,8 +20,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pyinstaller
+          pip install --only-binary=:all: pyinstaller
+          pip install --no-build-isolation vgamepad==0.1.0
 
       - name: Build EXE
         run: |
